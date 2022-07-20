@@ -1,17 +1,12 @@
 <?php
 require_once("bootst.php") ;
 require_once("db_connect.php");
-$id="";
-$name="";
-$img="";
-$price="";
-$des="";
-$sqlq="";
+
 
 if(isset($_POST['add'])){
     $id=$_POST['id'];
     $title=$_POST['title'];
-    $image=$_POST['image'];
+    $picture =$_FILES['picture']['name'];
     $code=$_POST['code'];
     $des=$_POST['description'];
     $type=$_POST['type'];
@@ -22,7 +17,7 @@ if(isset($_POST['add'])){
     $date=$_POST['date'];
 
     $sql = "INSERT INTO `biglibrary`( `title`, `image`, `ISBN_code`, `short_description`, `type`, `author_first_name`, `author_last_name`, `publisher_name`, `publisher_address`, `publish_date`) VALUES
-     ('$title','$image','$code','$des','$type','$fname','$lname','$puplish','$address','$date') ";
+     ('$title','$picture','$code','$des','$type','$fname','$lname','$puplish','$address','$date') ";
     $res=mysqli_query($conn,$sql);
     
     header('Location: http://localhost/cr10/PHP/create.php');
@@ -34,6 +29,8 @@ if(isset($_POST['del'])){
     $res=mysqli_query($conn,$sql);
 
 }
+
+
 
 
 ?>
@@ -51,7 +48,7 @@ if(isset($_POST['del'])){
 <h1 class="text-danger  text-center mb-4 mt-4">Create DB</h1>
 
 <div class="col-3 bg-dark ">
-<form action="create.php" method="POST"  class= "text-light ">
+<form  method="POST"  class= "text-light "enctype="multipart/form-data" >
 <div >
 <label for="formGroupExampleInput" class="form-label ms-2">id</label>
 <input type="text" class="form-control w-75 ms-2" name="id" id="formGroupExampleInput" >
@@ -61,8 +58,11 @@ if(isset($_POST['del'])){
 <input type="text" class="form-control w-75 ms-2" name="title" id="formGroupExampleInput" >
 </div>
 <div >
-<label for="formFile" class="form-label ms-2">image</label>
-<input class="form-control w-75 ms-2"name="image" type="file" id="formFile">
+
+   <label for="formFile" class="form-label ms-2">picture</label>
+    <input class="form-control w-75 ms-2" name="picture" type="file" id="formFile">
+   
+
 </div>
 <div >
 <label for="formGroupExampleInput" class="form-label w-25 ms-2">ISBN_code</label>
@@ -70,7 +70,6 @@ if(isset($_POST['del'])){
 </div>
 <div >
 <button type="submit" name="add" class="btn btn-primary ms-2 mt-5" >add</button>
-<button type="submit" name="update" class="btn btn-warning ms-2 mt-5" >update</button>
 <button type="submit" name="del" class="btn btn-danger ms-2 mt-5" >delete</button>
 <a href='index.php' class='btn btn-success ms-2 mt-5 '>data in table</a>
 </div>

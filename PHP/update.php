@@ -10,7 +10,7 @@ $row = mysqli_fetch_assoc($result);
 if (isset($_POST["update"])) {
     $id=$_POST['id'];
     $title=$_POST['title'];
-    $image=$_POST['image'];
+    $picture =$_FILES['picture']['name'];
     $code=$_POST['code'];
     $des=$_POST['description'];
     $type=$_POST['type'];
@@ -21,15 +21,10 @@ if (isset($_POST["update"])) {
     $date=$_POST['date'];
 
 
-    $sql = "UPDATE `biglibrary` SET `id`='$id',`title`='$title',`image`='$image',`ISBN_code`='$code',`short_description`='$des',`type`='$type',`author_first_name`='$fname',`author_last_name`='$lname',`publisher_name`='$puplish',`publisher_address`='$address',`publish_date`=' $date' WHERE id='$id'";
+    $sql = "UPDATE `biglibrary` SET `id`='$id',`title`='$title',`image`=' $picture',`ISBN_code`='$code',`short_description`='$des',`type`='$type',`author_first_name`='$fname',`author_last_name`='$lname',`publisher_name`='$puplish',`publisher_address`='$address',`publish_date`=' $date' WHERE id='$id'";
 
     $result = mysqli_query($conn, $sql);
-    if ($result) {
-        echo "User has been updated";
-       
-    } else {
-        echo "Error!!!!!";
-    }
+
 }
 ?>
 <!DOCTYPE html>
@@ -47,7 +42,7 @@ if (isset($_POST["update"])) {
 <h1 class="text-danger  text-center mb-4 mt-4">update DB</h1>
 
 <div class="col-3 bg-dark ">
-<form  method="POST"  class= "text-light ">
+<form  method="POST"  class= "text-light " enctype="multipart/form-data" >
 <div >
 <label for="formGroupExampleInput" class="form-label ms-2">id</label>
 <input type="text" class="form-control w-75 ms-2" name="id" id="formGroupExampleInput"  value="<?php echo $row["id"] ?>">
@@ -58,7 +53,7 @@ if (isset($_POST["update"])) {
 </div>
 <div >
 <label for="formFile" class="form-label ms-2">image</label>
-<input class="form-control w-75 ms-2"name="image" type="file" id="formFile">
+<input class="form-control w-75 ms-2" name="picture" type="file" id="formFile" >
 </div>
 <div >
 <label for="formGroupExampleInput" class="form-label w-25 ms-2">ISBN_code</label>
